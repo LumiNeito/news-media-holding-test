@@ -47,7 +47,20 @@ a.secondary {
   flex-shrink: 0;
 }
 
-/* Enable hover only on non-touch devices */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  padding: 0 48px;
+}
+
+.title {
+  color: #fff;
+}
+
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
     background: var(--button-primary-hover);

@@ -12,6 +12,5 @@ export const store = configureStore({
         getDefaultMiddleware().concat(postsApi.middleware),
 });
 
-// Типы для использования в хуках
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

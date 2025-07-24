@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { List } from 'antd';
 import { useInView } from 'react-intersection-observer';
 import { useGetPostsQuery } from '@/store/api/postsApi';
-import { PostResponse } from '@/types/types';
-import { PostItem } from './PostItem';
+import { PostItem } from './PostItem/PostItem';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '@/store/hooks';
+import { setPosts } from '@/store/slices/postsSlice';
 
 export const NewsList = () => {
 
     const [skip, setSkip] = useState(0);
-    const [allPosts, setAllPosts] = useState<PostResponse[]>([]);
+    const dispatch = useDispatch()
+    const allPosts = useAppSelector((state) => state.news.posts)
     const { ref, inView } = useInView({
         threshold: 0,
     });
@@ -21,9 +24,10 @@ export const NewsList = () => {
     useEffect(() => {
         if (isSuccess && data?.posts) {
             if (skip === 0) {
-                setAllPosts(data.posts);
+                dispatch(setPosts(data.posts));
             } else {
-                setAllPosts(prevPosts => [...prevPosts, ...data.posts]);
+                const updatedPosts = [...allPosts, ...data.posts];
+                dispatch(setPosts(updatedPosts));
             }
         }
     }, [data, isSuccess]);

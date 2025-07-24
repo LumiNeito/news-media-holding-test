@@ -1,17 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PostResponse } from '../../types/types';
 
-const initialState = {
-    title: ''
+interface PostsState {
+    posts: PostResponse[];
+}
+
+const initialState: PostsState = {
+    posts: [],
 };
 
 export const postsSlice = createSlice({
     name: 'news',
     initialState,
     reducers: {
-        setTitle: (state, action: PayloadAction<string>) => {
-            state.title = action.payload
+        setPosts: (state, action: PayloadAction<PostResponse[]>) => {
+            state.posts = action.payload;
         }
     },
 });
 
-export const { setTitle } = postsSlice.actions;
+export const { setPosts } = postsSlice.actions;

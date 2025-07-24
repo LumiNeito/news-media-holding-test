@@ -1,7 +1,9 @@
 import { PostResponse } from "@/types/types"
-import { List, Space } from "antd"
+import { Flex, List, Space } from "antd"
 import React from "react";
 import { LikeOutlined, EyeOutlined, DislikeOutlined } from '@ant-design/icons';
+import { Tags } from "@/components/Tags";
+import styles from './PostItem.module.css'
 
 
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
@@ -14,15 +16,15 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 
 export const PostItem = (
     {
-        id,
         title,
         body,
         tags,
         reactions,
         views,
-        userId
     }: PostResponse
 ) => {
+
+
     return (
         <List.Item
             key={title}
@@ -35,7 +37,10 @@ export const PostItem = (
             <List.Item.Meta
                 title={title}
             />
-            {body}
+            <Flex gap={8} vertical>
+                <div className={styles.slicedBody}>{body}</div>
+                <Tags tags={tags} />
+            </Flex>
         </List.Item>
     )
 }
