@@ -1,11 +1,15 @@
-// store/store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import newsReducer from './slices/newsSlice';
+import { postsSlice } from './slices/postsSlice';
+import { postsApi } from './api/postsApi';
 
 export const store = configureStore({
     reducer: {
-        news: newsReducer,
+        [postsSlice.reducerPath]: postsSlice.reducer
+        ,
+        [postsApi.reducerPath]: postsApi.reducer,
     },
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(postsApi.middleware),
 });
 
 // Типы для использования в хуках
