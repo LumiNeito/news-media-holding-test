@@ -4,6 +4,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import React from "react";
 import { Breadcrumb, Button, Layout, Menu, Typography } from 'antd';
+import { useDispatch, useSelector } from "react-redux";
+import { setTitle } from "@/store/slices/newsSlice";
+import { RootState } from "@/store/store";
 
 const { Header, Content, Footer } = Layout;
 const { Title, Text } = Typography
@@ -25,6 +28,8 @@ const items = Array.from({ length: 15 }).map((_, index) => ({
 
 
 export default function Home() {
+  const dispatch = useDispatch()
+  const title = useSelector((state: RootState) => state.news.title)
 
   return (
     <Layout>
@@ -39,7 +44,7 @@ export default function Home() {
         />
       </Header>
       <Content style={{ padding: '0 48px' }}>
-
+        <Button onClick={() => dispatch(setTitle('Ура! Всё работает!'))}>Установить заголовок</Button>
         <div
           style={{
             minHeight: 280,
@@ -47,6 +52,7 @@ export default function Home() {
           }}
         >
           <Button>kkl</Button>
+          {title}
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
@@ -55,3 +61,7 @@ export default function Home() {
     </Layout>
   );
 }
+function useAppSelector() {
+  throw new Error("Function not implemented.");
+}
+
