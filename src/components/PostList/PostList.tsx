@@ -1,10 +1,24 @@
 import React from 'react';
-import { List } from 'antd';
+import { Button, List, Result } from 'antd';
 import { PostItem } from './PostItem/PostItem';
 import { usePostList } from './hooks/usePostList';
 
 export const NewsList = () => {
-    const { loadMoreRef, isFetching, data } = usePostList()
+    const { loadMoreRef, isFetching, data, isError, refetch } = usePostList()
+
+    if (isError) return (
+        <Result
+            status="error"
+            title="Ошибка при загрузке новостей"
+            subTitle="Попробуйте перезагрузить или зайти позже"
+            extra={[
+                <Button type="primary" key="console" onClick={() => refetch()}>
+                    Попробовать снова
+                </Button>,
+            ]}
+        >
+        </Result>
+    )
 
     return (
         <List

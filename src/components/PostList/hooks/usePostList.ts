@@ -14,7 +14,7 @@ export const usePostList = () => {
     const posts = useAppSelector(allPostsSelector)
     const { ref, inView } = useInView({ threshold: 0, });
 
-    const { data, isFetching, isSuccess } = useGetPostsQuery({ skip, limit: POSTS_PER_PAGE });
+    const { data, isFetching, isSuccess, isError, refetch } = useGetPostsQuery({ skip, limit: POSTS_PER_PAGE });
 
     useEffect(() => {
         if (isSuccess && data?.posts) {
@@ -28,5 +28,5 @@ export const usePostList = () => {
         }
     }, [inView]);
 
-    return { data: posts, isFetching, loadMoreRef: ref }
+    return { data: posts, isFetching, loadMoreRef: ref, isError, refetch }
 }
