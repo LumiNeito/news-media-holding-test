@@ -1,4 +1,4 @@
-import { PostResponse } from "@/types/types"
+import { PostResponse } from "@/store/api/posts.api";
 import { Flex, Tag } from "antd";
 
 
